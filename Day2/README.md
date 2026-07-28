@@ -29,5 +29,5 @@ Solutions for Day 02 tasks covering string manipulations, sequence search, array
 From the repository root folder, run:
 
 ```bash
-python "Day 02/main.py"
+python "Day2/main.py"
 ```
