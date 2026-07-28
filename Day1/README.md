@@ -14,5 +14,5 @@ Solutions for Day 01 tasks covering basic algorithms, list manipulation, diction
 Navigate to the project root directory and execute:
 
 ```bash
-python "Day 01/main.py"
+python "Day1/main.py"
 ```
