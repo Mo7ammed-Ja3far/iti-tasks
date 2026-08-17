@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}All Courses - CourseHub{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card p-4 bg-white border-0 shadow-sm">
+            <h2 class="fw-bold mb-3">Find Your Next Course</h2>
+            <form method="get" class="row g-2">
+                <div class="col-md-5">
+                    <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search by course title or keyword...">
+                </div>
+                <div class="col-md-3">
+                    <select name="instructor" class="form-select">
+                        <option value="">All Instructors</option>
+                        {% for inst in instructors %}
+                            <option value="{{ inst.id }}" {% if selected_instructor == inst.id %}selected{% endif %}>{{ inst.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="category" class="form-select">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}" {% if selected_category == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-search me-1"></i> Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for course in courses %}
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm d-flex flex-column">
+                <div class="card-body">
+                    {% if course.category %}
+                        <span class="badge bg-secondary mb-2">{{ course.category.name }}</span>
+                    {% endif %}
+                    <h5 class="card-title fw-bold text-dark">{{ course.title }}</h5>
+                    <p class="card-text text-muted small mb-3">
+                        {{ course.description|truncatewords:20 }}
+                    </p>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center small text-muted">
+                        <span>
+                            <i class="bi bi-person me-1"></i>
+                            {% if course.instructor %}
+                                <a href="{% url 'courses:instructor_detail' course.instructor.id %}" class="text-decoration-none">{{ course.instructor.name }}</a>
+                            {% else %}
+                                Unknown Instructor
+                            {% endif %}
+                        </span>
+                        <span><i class="bi bi-people me-1"></i>{{ course.enrolled_students_count }} enrolled</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3">
+                    <a href="{% url 'courses:course_detail' course.pk %}" class="btn btn-outline-primary w-100">View Details</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="card p-5 text-center bg-white border-0">
+                <i class="bi bi-journal-x display-4 text-muted mb-2"></i>
+                <h4>No courses found</h4>
+                <p class="text-muted">Try adjusting your search terms or filters.</p>
+                <div>
+                    <a href="{% url 'courses:course_list' %}" class="btn btn-secondary btn-sm">Reset Filters</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

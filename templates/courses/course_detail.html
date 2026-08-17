@@ -1,0 +1,107 @@
+{% extends 'base.html' %} {% block title %}{{ course.title }} - Details{%endblock %} {% block content %}
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card p-4 border-0 mb-4">
+      {% if course.category %}
+      <span class="badge bg-secondary align-self-start mb-2"
+        >{{ course.category.name }}</span
+      >
+      {% endif %}
+      <h1 class="fw-bold">{{ course.title }}</h1>
+      <p class="text-muted small">
+        Created on {{ course.created_at|date:"M d, Y" }}
+      </p>
+      <hr />
+      <h5 class="fw-bold">Description</h5>
+      <p class="lead fs-6">{{ course.description }}</p>
+    </div>
+
+    <div class="card p-4 border-0">
+      <h5 class="fw-bold mb-3">
+        <i class="bi bi-people me-2"></i>Enrolled Students ({{ enrollments.count}})
+      </h5>
+      {% if enrollments %}
+      <ul class="list-group list-group-flush">
+        {% for enrollment in enrollments %}
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center px-0"
+        >
+          <div>
+            <strong
+              >{{enrollment.student.user.get_full_name|default:enrollment.student.user.username }}</strong
+            >
+            <span class="text-muted small ms-2"
+              >(@{{ enrollment.student.user.username }})</span
+            >
+          </div>
+          <span class="badge bg-light text-dark border"
+            >{{ enrollment.get_status_display }}</span
+          >
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-muted mb-0">No students enrolled yet. Be the first!</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card p-4 border-0 mb-4 sticky-top" style="top: 80px">
+      <h5 class="fw-bold mb-3">Enrollment Action</h5>
+      {% if user.is_authenticated %} {% if is_enrolled %}
+      <div class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <div>
+          You are enrolled (Status:
+          <strong>{{ student_enrollment.get_status_display }}</strong>)
+        </div>
+      </div>
+      <a
+        href="{% url 'courses:edit_enrollment' student_enrollment.pk %}"
+        class="btn btn-warning w-100 mb-2"
+        >Edit Enrollment</a
+      >
+      <a
+        href="{% url 'courses:cancel_enrollment' student_enrollment.pk %}"
+        class="btn btn-outline-danger w-100"
+        >Cancel Enrollment</a
+      >
+      {% else %}
+      <form method="post" action="{% url 'courses:enroll_course' course.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-lg w-100">
+          Enroll Now
+        </button>
+      </form>
+      {% endif %} {% else %}
+      <p class="text-muted small">
+        You need to have an account to enroll in this course.
+      </p>
+      <a
+        href="{% url 'accounts:login' %}?next={{ request.path }}"
+        class="btn btn-primary w-100"
+        >Login to Enroll</a
+      >
+      {% endif %}
+
+      <hr class="my-4" />
+
+      <h6 class="fw-bold">Instructor Info</h6>
+      <div class="d-flex align-items-center mt-2">
+        <i class="bi bi-person-badge fs-2 text-primary me-2"></i>
+        <div>
+          <a
+            href="{% url 'courses:instructor_detail' course.instructor.id %}"
+            class="fw-bold text-decoration-none"
+            >{{ course.instructor.name }}</a
+          >
+          <p class="text-muted small mb-0">
+            {{ course.instructor.bio|truncatewords:10 }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

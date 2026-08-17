@@ -1,0 +1,11 @@
+# Ignore templates to prevent Prettier from breaking Django tags
+templates/
+**/templates/**
+*.html
+
+# Ignore static files and virtual environments
+venv/
+.venv/
+static/
+staticfiles/
+db.sqlite3

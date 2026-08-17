@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %}Edit Enrollment{% endblock %} {%block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card p-4 border-0 shadow-sm">
+      <h4 class="fw-bold mb-3">
+        Edit Status for {{ enrollment.course.title }}
+      </h4>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          {{ form.status }}
+        </div>
+        <button type="submit" class="btn btn-warning w-100 mb-2">
+          Save Changes
+        </button>
+        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary w-100"
+          >Cancel</a
+        >
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
