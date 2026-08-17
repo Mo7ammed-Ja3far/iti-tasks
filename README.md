@@ -20,11 +20,11 @@ A full-featured Course Management System built with Django, featuring course dis
 
 1. **Clone the repository:**
    \`\`\`bash
-   git clone <YOUR_REPO_URL>
+   git clone https://github.com/Mo7ammed-Ja3far/iti-tasks/tree/final_project
    cd django_final_project
    \`\`\`
 
-2. **Create and activate a virtual environment:**
+3. **Create and activate a virtual environment:**
    \`\`\`bash
    python -m venv venv
 
@@ -37,27 +37,27 @@ A full-featured Course Management System built with Django, featuring course dis
    source venv/bin/activate
    \`\`\`
 
-3. **Install dependencies:**
+4. **Install dependencies:**
    \`\`\`bash
    pip install -r requirements.txt
    \`\`\`
 
-4. **Apply database migrations:**
+5. **Apply database migrations:**
    \`\`\`bash
    python manage.py migrate
    \`\`\`
 
-5. **Populate demo data (Seeder):**
+6. **Populate demo data (Seeder):**
    \`\`\`bash
    python manage.py seed_data
    \`\`\`
 
-6. **Create an admin superuser (optional):**
+7. **Create an admin superuser (optional):**
    \`\`\`bash
    python manage.py createsuperuser
    \`\`\`
 
-7. **Run the development server:**
+8. **Run the development server:**
    \`\`\`bash
    python manage.py runserver
    \`\`\`
