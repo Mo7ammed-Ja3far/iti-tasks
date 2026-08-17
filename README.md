@@ -21,6 +21,7 @@ A full-featured Course Management System built with Django, featuring course dis
 1. **Clone the repository:**
    \`\`\`bash
    git clone https://github.com/Mo7ammed-Ja3far/iti-tasks/tree/final_project
+   
    cd django_final_project
    \`\`\`
 
