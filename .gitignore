@@ -1,9 +1,7 @@
-# Virtual Environment
 venv/
 .venv/
 env/
 
-# Python Cache
 __pycache__/
 *.pyc
 *.pyo
@@ -12,7 +10,6 @@ __pycache__/
 .vscode/
 .idea/
 
-# Database (يفضل عدم رفعه والاعتماد على الـ Seeder)
 *.sqlite3
 
 # Static collected
